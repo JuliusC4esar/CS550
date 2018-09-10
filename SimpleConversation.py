@@ -1,3 +1,9 @@
+# Kai Joseph
+# September 10, 2018
+# Simple Conversation and Text Word Game
+# For Loops: https://wiki.python.org/moin/ForLoop
+# Python If Statement: http://anh.cs.luc.edu/handsonPythonTutorial/ifstatements.html
+
 word = "king"
 
 print("Greetings, mortal!\n")
