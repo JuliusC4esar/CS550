@@ -1,4 +1,4 @@
-# Kai Joseph
+# Kai 
 # Sept. 13, 2018
 # This program, as stated in the homework assignment description, will take 2 arguments from the command line and input them into an equation to produce the wind chill.
 

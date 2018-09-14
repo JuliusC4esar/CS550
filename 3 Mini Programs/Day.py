@@ -1,4 +1,4 @@
-# Kai Joseph
+# Kai 
 # Sept. 13, 2018
 # Takes three console arguments. The month, the date, and the year. It then prints out the day of the week from an array of strings.
 # Source of Arrays: https://www.w3schools.com/python/python_arrays.asp

@@ -1,4 +1,4 @@
-# Kai Joseph
+# Kai 
 # Sept. 13, 2018
 # Takes three numbers from the command line and tells whether the series is increasing, decreasing, or neither.
 # Source: https://docs.python.org/3/tutorial/controlflow.html

@@ -1,4 +1,4 @@
-# Kai Joseph
+# Kai 
 # September 10, 2018
 # Simple Conversation and Text Word Game
 # For Loops: https://wiki.python.org/moin/ForLoop
