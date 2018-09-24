@@ -3,7 +3,7 @@
 
 def intro():
 
-	name = input("\nGreetings, traveller. What is your name?\n")
+	name = str(input("\nGreetings, traveller. What is your name?\n"))
 
 	print('''
 
@@ -96,6 +96,11 @@ def dialogue1():
 def choice1:
 
 	print("")
+
+
+def choice2:
+
+	print("Well, who ")
 
 
 
