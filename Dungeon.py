@@ -4,6 +4,7 @@
 # Sources:
 # https://www.programiz.com/python-programming/global-local-nonlocal-variables
 # https://www.geeksforgeeks.org/isupper-islower-lower-upper-python-applications/
+# On my honor, I have neither given nor received unauthorised aid.
 
 
 # Initial description:
