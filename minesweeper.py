@@ -4,6 +4,11 @@
 # Enter 3 integers: a width, a height, and a number of bombs, and a minesweeper board will be generated.
 
 
+
+
+
+# Board generation starts here:
+
 import random
 
 import sys
@@ -103,6 +108,59 @@ try:
 	for x in range(height):
 
 		print(*board[x])
+
+
+
+
+
+
+
+	# Input starts here:
+
+
+	while True:
+
+			while True:
+
+				try:
+
+					xpos = int(input("\nEnter the x-coordinate of the item you wish to select. (The bottom left corner has coordinates (1,1), so coordinates start at 1 and go up with the array.)\n"))
+
+					ypos = int(input("\nEnter the y-coordinate of the item you wish to select. (The bottom left corner has coordinates (1,1), so coordinates start at 1 and go up with the array.)\n"))
+
+					if xpos >= 1 and xpos <= width and ypos >= 1 and ypos <= height:
+
+						break
+
+					else:
+
+						print("\nPlease enter an integer that is greater than or equal to one and is within the parameters of the array.\n")
+
+				except ValueError:
+
+					print("\nPlease enter an integer that is greater than or equal to one and is within the parameters of the array.\n")
+
+
+
+
+			if board[(height-(ypos-1))-1][xpos-1] == '*':
+
+				print("\nYou selected a mine! You lose!")
+
+				quit()
+
+			else:
+
+				print("\nYou selected the number:",board[(height-(ypos-1))-1][xpos-1])
+
+
+			for x in range(height):
+
+				print(*board[x])
+
+
+
+
 
 
 except ValueError:
