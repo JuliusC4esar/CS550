@@ -1,144 +1,115 @@
 # Kai
-# Minesweeper Board
-# Enter three console values: width, height, and number of bombs. A board will be generated with bombs randomly positioned.
-# While I successfuly completed the random bomb generation as well as the board dimensional generation, I could not complete the final step. The code that I wrote for the number generation is still written, but I cannot figure out what is incorrect.
+# October 2, 2018
+# Functional minesweeper board generation
+# Enter 3 integers: a width, a height, and a number of bombs, and a minesweeper board will be generated.
 
 
 import random
 
 import sys
 
-import math
+try:
 
-width = int(sys.argv[1])
+	width = int(sys.argv[1])
 
-height = int(sys.argv[2])
+	height = int(sys.argv[2])
 
-bombs = int(sys.argv[3])
+	bombs = int(sys.argv[3])
 
-board = [[0] for x in range(height)]
+	board = [[0] for x in range(height)]
 
-for x in range(height):
+	
+	for x in range(height):
 
-	for i in range(width-1):
+		for y in range(width-1):
 
-		board[x].append(0)
+			board[x].append(0)
 
 
-for x in range(bombs):
 
-	board[random.randint(0,height-1)][random.randint(0,width-1)] = '*'
+	for x in range(height):
 
+		print(*board[x])
 
-for x in range(height):
 
-	for i in range(width):
+	for b in range(bombs):
 
-		try:
+		x = random.randint(0,height-1)
 
-			if board[x][i + 1] == '*':
+		y = random.randint(0,width-1)
 
-				board[x][i] = (board[x][i])+1
+		if board[x][y] != '*':
 
-		except:
+			board[x][y] = '*'
 
-			break
+		else:
 
-		try:
+			b = b-1
 
-			if board[x + 1][i + 1] == '*':
 
-				board[x][i] = (board[x][i])+1
+		if board[x][y] == '*':
 
-		except:
+			if x+1 < height:
 
-			break
+				if board[x+1][y] != '*':
+			
+					board[x+1][y] += 1
 
-		try:
+			if x-1 >= 0:
 
-			if board[x][i - 1] == '*':
+				if board[x-1][y] != '*':
 
-				board[x][i] = (board[x][i])+1
+					board[x-1][y] += 1
 
+			if x+1 < height and y+1 < width:
 
-		except:
+				if board[x+1][y+1] != '*':
 
-			break
+					board[x+1][y+1] += 1
 
-		try:
+			if x-1 >= 0 and y+1 < width:
 
-			if board[x - 1][i - 1] == '*':
+				if board[x-1][y+1] != '*':
 
-				board[x][i] = (board[x][i])+1
+					board[x-1][y+1] += 1
 
-		except:
+			if x-1 >= 0 and y-1 >= 0:
 
-			break
+				if board[x-1][y-1] != '*':
 
-		try:
+					board[x-1][y-1] += 1
 
-			if board[x - 1][i - 1] == '*':
+			if y+1 < width:
 
-				board[x][i] = (board[x][i])+1
+				if board[x][y+1] != '*':
 
-		except:
+					board[x][y+1] += 1
 
-			break
+			if y-1 >= 0:
 
+				if board[x][y-1] != '*':
 
-		try:
+					board[x][y-1] += 1
 
-			if board[x - 1][i + 1] == '*':
+			if x+1 < height and y-1 >= 0:
 
-				board[x][i] = (board[x][i])+1
+				if board[x+1][y-1] != '*':
 
-		except:
+					board[x+1][y-1] += 1
 
-			break
 
-		try:
+	print()
 
-			if board[x + 1][i - 1] == '*':
+	for x in range(height):
 
-				board[x][i] = (board[x][i])+1
+		print(*board[x])
 
-		except:
 
-			break
+except ValueError:
 
+	print("Please enter 3 integers: A width, a height, and a number of bombs.")
 
-		try:
-
-			if board[x + 1][i] == '*':
-
-				board[x][i] = (board[x][i])+1
-
-		except:
-
-			break
-
-
-		try:
-
-			if board[x - 1][width] == '*':
-
-				board[x][i] = (board[x][i])+1
-
-		except:
-
-			break
-
-
-
-
-
-for x in range(height):
-
-	print(board[x])
-
-
-
-
+	quit()
 
 
 
