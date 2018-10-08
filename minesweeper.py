@@ -4,77 +4,52 @@
 # Enter 3 integers: a width, a height, and a number of bombs, and a minesweeper board will be generated.
 
 
-def zero():
 
-	for x in range(height):
+winflag = 0
 
-		for y in range(width-1):
 
-			if hidden[x][y] == 0:
 
-				if x+1 < height:
+def zero():     # Reveal all adjacent tiles to each revealed zero in the board
 
-					hidden[x+1][y] = board[x+1][y]
+	for y in range(height):
 
-					if hidden[x+1][y] == 0:
+		for x in range(width-1):
 
-						zero() 	
+			if hidden[y][x] == 0:
 
-				if x-1 >= 0:
+				if y+1 < height:
 
-					hidden[x-1][y] = board[x-1][y]
-
-					if hidden[x-1][y] == 0:
-
-						zero()
-
-				if x+1 < height and y+1 < width:
-
-					hidden[x+1][y+1] = board[x+1][y+1]
-
-					if hidden[x+1][y+1] == 0:
-
-						zero()
-
-				if x-1 >= 0 and y+1 < width:
-
-					hidden[x-1][y+1] = board[x-1][y+1]
-
-					if hidden[x-1][y+1] == 0:
-
-						zero()
-
-				if x-1 >= 0 and y-1 >= 0:
-
-					hidden[x-1][y-1] = board[x-1][y-1]
-
-					if hidden[x-1][y-1] == 0:
-
-						zero()
-
-				if y+1 < width:
-
-					hidden[x][y+1] = board[x][y+1]
-
-					if hidden[x][y+1] == 0:
-
-						zero()
+					hidden[y+1][x] = board[y+1][x]
 
 				if y-1 >= 0:
 
-					hidden[x][y-1] = board[x][y-1]
+					hidden[y-1][x] = board[y-1][x]
 
-					if hidden[x][y-1] == 0:
+				if y+1 < height and x+1 < width:
 
-						zero()
+					hidden[y+1][x+1] = board[y+1][x+1]
 
-				if x+1 < height and y-1 >= 0:
+				if y-1 >= 0 and x+1 < width:
 
-					hidden[x+1][y-1] = board[x+1][y-1]
+					hidden[y-1][x+1] = board[y-1][x+1]
 
-					if hidden[x+1][y-1] == 0:
+				if y-1 >= 0 and x-1 >= 0:
 
-						zero()
+					hidden[y-1][x-1] = board[y-1][x-1]
+
+				if x+1 < width:
+
+					hidden[y][x+1] = board[y][x+1]
+
+				if x-1 >= 0:
+
+					hidden[y][x-1] = board[y][x-1]
+
+				if y+1 < height and x-1 >= 0:
+
+					hidden[y+1][x-1] = board[y+1][x-1]
+
+				
 
 
 
@@ -104,7 +79,18 @@ try:
 	bombs = int(sys.argv[3])
 
 
-	if width*height >= 25 and width*height >= bombs:
+	horizontal = []
+
+	line = []
+
+	for x in range(width):
+
+		horizontal.append(x)
+
+		line.append('-')
+
+
+	if width*height >= bombs and bombs >= 1:
 
 		board = [[0] for x in range(height)]
 
@@ -197,38 +183,6 @@ try:
 
 
 
-			
-
-			# Initial Reveal
-
-			initialx = int(width/2)
-
-			initialy = int(height/2)
-
-			hidden[initialy][initialx] = board[initialy][initialx]
-
-			hidden[initialy+1][initialx] = board[initialy+1][initialx]
-
-			hidden[initialy-1][initialx] = board[initialy-1][initialx]
-
-			hidden[initialy][initialx+1] = board[initialy][initialx+1]
-
-			hidden[initialy][initialx-1] = board[initialy][initialx-1]
-
-
-
-
-		print()  # Print final board
-
-		for x in range(height):
-
-			print(*hidden[x])
-
-
-
-
-
-
 
 
 
@@ -237,78 +191,159 @@ try:
 
 		while True:
 
-				while True:
+			print('  ',*horizontal)
+ 
+			print('  ',*line)
 
-					try:
+			for x in range(height): # Print board
 
-						xpos = int(input("\nEnter the x-coordinate of the region that you wish to reveal.\n"))
-
-						ypos = int(input("\nEnter the y-coordinate of the region that you wish to reveal.\n"))
-
-						if xpos >= 0 and xpos <= width and ypos >= 0 and ypos <= height:
-
-							break
-
-						else:
-
-							print("That number doesn't work! Select a proper one, yeah?")
-
-					except ValueError:
-
-						print("\nThat number doesn't work! Select a proper one, yeah?\n")
+				print((str(x)+'|'),*hidden[x])
 
 
+			while True:
 
+				pos = input("\nWhat do you want to do? Type in the x-coordinate followed by the y-coordinate followed by an m for mark or f for flag. Separate each with a comma. (x,y,m/f)\n")
 
-				if board[ypos][xpos] == '*': # Lose
+				try:
 
-					print("\nYou selected a mine! You lose! Here are all the positions of the mines!")
+					array = pos.split(',')
 
-					for x in range(height):
+					xpos = int(array[0])
 
-						for y in range(width):
+					ypos = int(array[1])
 
-							if board[x][y] == '*':
+					action = array[2]
 
-								hidden[x][y] = board[x][y]
+					if xpos >= 0 and xpos < width and ypos >= 0 and ypos < height and (action.lower() == 'm' or action.lower() == 'f'):
 
+						break
 
-					for x in range(height): # Print board
+					else:
 
-						print(*board[x])
+						print("\nERROR: Either your coordinate values are out of range or your action is not an 'm' or an 'f'. Maybe you even made both of those mistakes. Separate all values with a comma.\n")
 
+				except IndexError:
 
+					print("\nERROR: Please enter the x value, the y value, and the action (m/f) separated by commas. Do not include parenthesis or spaces.\n")
 
-					quit()
+				except ValueError:
+
+					print("\nERROR: Please type in integers for the x and y values and an 'm' or an 'f' for the action. Follow this format: (x,y,m/f). Do not include parenthesis or spaces. Separate all values with a comma.\n")
 
 
 
-				else:
 
-					print("\nYou landed on the number:",board[ypos][xpos])
+			if board[ypos][xpos] == '*' and action.lower() == 'm': # Lose
 
-					hidden[ypos][xpos] = board[ypos][xpos]
+				print("\nYou selected a mine! You lose! Here are all the positions of the mines!")
 
-					if hidden[ypos][xpos] == 0:
+				for x in range(height):
 
-						zero()
+					for y in range(width):
+
+						if board[x][y] == '*':
+
+							hidden[x][y] = board[x][y]
+
+
+
+
+				print('  ',*horizontal)
+
+				print('  ',*line)
 
 				for x in range(height): # Print board
 
-					print(*hidden[x])
+					print((str(x)+'|'),*board[x])
 
 
-				if board.count('*') == hidden.count('?'): # Win condition
 
-					print("\nYou have cleared the board! You win!")
+				quit()
 
-					quit()
+
+
+			elif board[ypos][xpos] != '*' and action.lower() == 'm':
+
+				print("\nYou landed on the number:",board[ypos][xpos])
+
+				hidden[ypos][xpos] = board[ypos][xpos]
+
+				if hidden[ypos][xpos] == 0:
+
+					if ypos+1 < height:
+
+						hidden[ypos+1][xpos] = board[ypos+1][xpos]
+
+					if ypos-1 >= 0:
+
+						hidden[ypos-1][xpos] = board[ypos-1][xpos]
+
+					if ypos+1 < height and xpos+1 < width:
+
+						hidden[ypos+1][xpos+1] = board[ypos+1][xpos+1]
+
+					if ypos-1 >= 0 and xpos+1 < width:
+
+						hidden[ypos-1][xpos+1] = board[ypos-1][xpos+1]
+
+					if ypos-1 >= 0 and xpos-1 >= 0:
+
+						hidden[ypos-1][xpos-1] = board[ypos-1][xpos-1]
+
+					if xpos+1 < width:
+
+						hidden[ypos][xpos+1] = board[ypos][xpos+1]
+
+					if xpos-1 >= 0:
+
+						hidden[ypos][xpos-1] = board[ypos][xpos-1]
+
+					if ypos+1 < height and xpos-1 >= 0:
+
+						hidden[ypos+1][xpos-1] = board[ypos+1][xpos-1]
+
+					
+					for x in range(height*width):  # Zero search algorithm called for each coordinate
+
+						zero()
+
+
+			elif board[ypos][xpos] == '*' and action.lower() == 'f':
+
+				winflag = winflag + 1
+
+				hidden[ypos][xpos] = '!'
+
+
+			elif board[ypos][xpos] != '*' and action.lower() == 'f':
+
+				hidden[ypos][xpos] = '!'
+
+				print("\nYou have flagged a safe square! The square you have flagged is not a bomb! You lose!\n")
+
+				print('  ',*horizontal)
+
+				print('  ',*line)
+
+				for x in range(height): # Print board
+
+					print((str(x)+'|'),*board[x])
+
+				quit()
+
+
+			if winflag == bombs and hidden.count('?') == 0:
+
+				print("\nYou win! You have explored or flagged every square and you have only flagged bombs!\n")
+
+				quit()
+
 
 
 
 	else:  # Max bomb limit
 
-		print("\nThis number of bombs does not work with the board size. You cannot have",bombs,"bombs with",str(width*height),"square units board size!")
+		print("\nThis number of bombs does not work with the board size. You cannot have",bombs,"bombs with",str(width*height),"square units board size! Also, you cannot have 0 bombs. You must have at least a bit of danger!")
 
 		quit()
 
