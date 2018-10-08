@@ -176,7 +176,7 @@ def inputloop():
 
 		while True:
 
-			pos = input("\nWhat do you want to do? Type in the x-coordinate followed by the y-coordinate followed by an m for mark or f for flag. Separate each with a comma. (x,y,m/f)\n")
+			pos = input("\nWhat do you want to do? Type in the x-coordinate followed by the y-coordinate followed by an m for mark or f for flag. Separate each with a comma. Do not include spaces or parenthesis.(x,y,m/f)\n")
 
 			try:
 
@@ -321,7 +321,7 @@ import sys
 
 try:
 
-	width = int(sys.argv[1])
+	width = int(sys.argv[1])     # Value input
 
 	height = int(sys.argv[2])
 
