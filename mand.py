@@ -1,28 +1,38 @@
 # Kai
-# Mandelbrot Set First Attempt
+# Mandelbrot Set Working Attempt
 
 from PIL import Image
 
-import math
+imgx = 512
 
-image = Image.new("RGB",(512,512))
+imgy = 512
 
-for x in range(-2,3):
+image = Image.new("RGB",(imgx,imgy))
 
-	for y in range(-2,3):
+iterations = 256
 
-		c = complex(x,y) # changing C value
+for x in range(imgx):
 
-		z = 0 # Define Z at 0
+	for y in range(imgy): 
 
-		for r in range(3):  # 3 iterations
+		complexx = -2+(x*(4/imgx))
 
-			z = (z*z) + c # Mandelbrot calculation
+		complexy = -2+(y*(4/imgy))
 
-			if abs(z) >= 2:    # If it breaks off, color the pixel a certain shade of red depending on number of iterations
+		c = complex(complexx,complexy)
 
-				image.putpixel((x+200,y+200),(255/(r+1),0,0))
+		z = 0
+
+		for r in range(iterations):
+
+			z = (z*z) + c
+
+			if abs(z) >= 2:
+
+				image.putpixel((x,y),(255,0,0))
 
 				break
 
+
 image.save("mandelbrot","PNG")
+
