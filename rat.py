@@ -1,6 +1,3 @@
-num = 0
-
-den = 0
 
 class RationalNumber:
 	def __init__(self, n, d):
