@@ -25,48 +25,107 @@ walls += [Wall(50, 50, 130, 7, True)]
 walls += [Wall(250, 50, 130, 7, True)]
 
 running = True
+gameover = False
 
 frames = 0
 frameCount = 0
 
+
 while running:
 
-    window.fill(pygame.color.Color("BLACK"))  # Clear the window
-
     for event in pygame.event.get():  # Loop get the pyGame events
-        if event.type == QUIT:
-            running = False  # Quit if the window is closed
+            if event.type == QUIT:
+                running = False  # Quit if the window is closed
 
-    dt = fps * (clock.tick(fps) / 1000)  # Calculate dt
+    if gameover == False:
 
-    frames += 1
-    frameCount += 1
+        font = pygame.font.SysFont(None,25)
 
-    if frames >= (60 / dt) * 4:
-        frames = 0
+        window.fill(pygame.color.Color("BLACK"))  # Clear the window
 
-        size = random.randint(5, 15)
+        t = round(frameCount / fps)
 
-        x = random.sample([-size, screen_size[0] + size], 1)[0]
-        y = random.randint(-size, screen_size[1] + size)
+        text = font.render("Time Survived: "+str(t)+" seconds",True,(255,255,255))
 
-        enemies.append(Enemy(x, y, random.randint(8,12) / 10, size))
+        window.blit(text,(10,10))
 
-    screen_size = pygame.display.get_surface().get_size()  # Get the screen size (in case of resize)
+        dt = fps * (clock.tick(fps) / 1000)  # Calculate dt
 
-    # Calculate player movement and draw player
-    player.movement(screen_size, dt, walls)
-    player.graphics(screen_size, window)
+        frames += 1
+        frameCount += 1
 
-    for x in range(len(enemies)):
-        enemies[x].movement(screen_size, dt, player)
-        enemies[x].graphics(screen_size, window)
+        if frames >= (60 / dt) * 4:
+            frames = 0
 
-    [i.graphics(screen_size, window) for i in walls]
+            size = random.randint(5, 15)
 
-    # Display window and change title
-    pygame.display.flip()
-    pygame.display.set_caption(f"T: {round(frameCount / fps)}")
+            x = random.sample([-size, screen_size[0] + size], 1)[0]
+            y = random.randint(-size, screen_size[1] + size)
+
+            enemies.append(Enemy(x, y, (1/size)*8, size))
+
+        screen_size = pygame.display.get_surface().get_size()  # Get the screen size (in case of resize)
+
+        # Calculate player movement and draw player
+        player.movement(screen_size, dt, walls)
+        player.graphics(screen_size, window)
+
+        for x in range(len(enemies)):
+            enemies[x].movement(screen_size, dt, player)
+            enemies[x].graphics(screen_size, window)
+            if enemies[x].run == False:
+
+                gameover = True
+
+                break
+
+        [i.graphics(screen_size, window) for i in walls]
+
+        # Display window and change title
+        pygame.display.flip()
+        pygame.display.set_caption(f"T: {round(frameCount / fps)}")
+
+
+    else:
+
+        #window.fill(pygame.color.Color("BLACK"))  # Clear the window
+
+        screen_size = pygame.display.get_surface().get_size()  # Get the screen size (in case of resize)
+
+        # Display window and change title
+        pygame.display.flip()
+        pygame.display.set_caption(f"T: {round(frameCount / fps)}")
+
+        font = pygame.font.SysFont(None,40)
+
+        text = font.render("Time Survived: "+str(t)+" seconds",True,(255,255,255))
+
+        text2 = font.render("Press the SPACEBAR",True,(255,255,255))
+
+        window.blit(text,(10,200))
+
+        window.blit(text2,(10,300))
+
+        key = pygame.key.get_pressed()  # Get the keys pressed
+
+        if key[K_SPACE]:
+
+        	player = Player(100, screen_size[1] - 20, 20, 20, 8)
+
+        	enemies = []
+
+        	frameCount = 0
+
+        	gameover = False
+
+
+
+
+
+
+
+
+
 
 
 
