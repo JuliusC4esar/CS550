@@ -53,7 +53,7 @@ print("Times car is won: " + str(car))
 print("Times pennies are won: " + str(pennies),"\n")	
 
 
-# The results are as I predicted. On average, you have a 2/3 chance of winning the car if you switch and a 1/3 chance if you do not switch. My explanation for the logic of the problem is at the top of the script.
+# The results are as I predicted. On average, you have a 2/3 chance of winning the car if you switch and a 1/3 chance if you do not switch. This is, once again, because if you are given the position of a penny box, by switching you will get the car if you have chosen pennies or pennies if you have chosen the car. Because the likelihood of having chosen pennies was 2/3, you get a 2/3 chance of winning the car instead of the rigid 1/3 chance of winning the car by not switching.
 
 
 
