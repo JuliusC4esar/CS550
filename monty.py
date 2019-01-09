@@ -1,6 +1,8 @@
 # Kai
 # Monty Hall Problem
 # Switching makes a monumental difference in your chances of winning the car. This is because when you make the original choice of three random boxes, you have a 2/3 chance of getting pennies. After one penny box is revealed, if you have selected a penny box, you are guaranteed to get the car if you switch. Therefore, by switching, you have a 2/3 chance of winning the car. However, by not switching, you have a mere 1/3 chance of winning the car by virtually nullifying the effect of revealing a penny box.
+# On my honor, I have neither given nor received unauthorised aid.
+
 
 import random
 
